@@ -1,0 +1,5 @@
+*.txt
+PaperScRock/Library/
+PaperScRock/Logs/
+PaperScRock/obj/
+PaperScRock/.vs/
