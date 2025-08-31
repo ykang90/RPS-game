@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28455db8fbc2f2240914a94b03552052, type: 3}
+  m_Name: Level2_EnemySettings
+  m_EditorClassIdentifier: 
+  events:
+  - delay: 0
+    prefab: {fileID: 8220892195902513635, guid: a630d3225150ee04f9ace013575a1917, type: 3}
+  - delay: 2
+    prefab: {fileID: 8220892195902513635, guid: a630d3225150ee04f9ace013575a1917, type: 3}
+  - delay: 5
+    prefab: {fileID: 8930196393090577483, guid: 0b0f1afb53a9d6440a6c4a4276531588, type: 3}
+  - delay: 7
+    prefab: {fileID: 749871976538071312, guid: 6317b8b5a3c4bf34999da84faa9267cf, type: 3}
+  - delay: 10
+    prefab: {fileID: 749871976538071312, guid: 6317b8b5a3c4bf34999da84faa9267cf, type: 3}

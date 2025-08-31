@@ -1,0 +1,19 @@
+{
+    "name": "CARVES.Actors",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2501f915bdc06f24ebefcc0c92f80395",
+        "GUID:7e16107b22c1ffa488c1aecd91eac5e6",
+        "GUID:fe03824fffd35e147ac2b9a2287dd819",
+        "GUID:ae0d6a44a6cabf94a9024e026a915e07"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

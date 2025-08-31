@@ -1,0 +1,16 @@
+{
+    "name": "CARVES.Shared",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2501f915bdc06f24ebefcc0c92f80395"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

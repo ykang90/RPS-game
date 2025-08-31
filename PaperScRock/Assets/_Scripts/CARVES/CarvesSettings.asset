@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8bcbf07fbb279743849811d2bce3e99, type: 3}
+  m_Name: CarvesSettings
+  m_EditorClassIdentifier: 
+  RootPath: _Scripts
+  GeneratedInterfaceDir: CARVES.Generated
+  LinkXmlPath: Carves_AutoLink.xml
+  MetaInfoName: CarvesMetaInfo.asset
+  ControllerPath: Controllers
+  ActorPath: Actors
+  RecordPath: Records
+  ViewPath: Views
+  ExecuteModulePath: Execute/Modules
+  ExecuteServicePath: Execute/Services
+  SharedPath: Shared
+  ScanAssemblies:
+  - {fileID: 5897886265953266890, guid: 36a9526557f52a84aad92462d1301b73, type: 3}
+  - {fileID: 5897886265953266890, guid: 63fee54cb3771de4b9e3ee917541a979, type: 3}
+  - {fileID: 5897886265953266890, guid: 7e16107b22c1ffa488c1aecd91eac5e6, type: 3}
+  - {fileID: 5897886265953266890, guid: 3dbb52b47fa675449a594bec944d1b26, type: 3}
+  - {fileID: 5897886265953266890, guid: f6bb033c78234ee45af58d8e5852a12b, type: 3}
+  - {fileID: 5897886265953266890, guid: fe03824fffd35e147ac2b9a2287dd819, type: 3}
+  AutoGenerate: 1

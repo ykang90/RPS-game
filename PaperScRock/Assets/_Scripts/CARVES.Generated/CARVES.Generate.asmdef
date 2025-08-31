@@ -1,0 +1,16 @@
+{
+    "name": "CARVES.Generate",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fe03824fffd35e147ac2b9a2287dd819"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

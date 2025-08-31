@@ -8,6 +8,7 @@ public class Tower: MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log($"{gameObject.name} Awake with hp={hp}");
         currentHealth = hp;
     
     }

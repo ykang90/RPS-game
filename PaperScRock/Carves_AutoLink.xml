@@ -1,0 +1,7 @@
+<linker>
+  <assembly fullname="Assembly-CSharp">
+
+    <type fullname="GameWorld" preserve="all" />
+    <type fullname="Configure" preserve="all" />
+  </assembly>
+</linker>

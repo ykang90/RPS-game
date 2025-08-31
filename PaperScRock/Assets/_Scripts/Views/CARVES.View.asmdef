@@ -1,0 +1,27 @@
+{
+    "name": "CARVES.View",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2501f915bdc06f24ebefcc0c92f80395",
+        "GUID:fe03824fffd35e147ac2b9a2287dd819",
+        "GUID:36a9526557f52a84aad92462d1301b73",
+        "GUID:f6bb033c78234ee45af58d8e5852a12b",
+        "GUID:ae0d6a44a6cabf94a9024e026a915e07",
+        "GUID:7e16107b22c1ffa488c1aecd91eac5e6",
+        "GUID:63fee54cb3771de4b9e3ee917541a979",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:5c01796d064528144a599661eaab93a6",
+        "GUID:029c1c1b674aaae47a6841a0b89ad80e",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

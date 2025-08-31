@@ -1,0 +1,18 @@
+{
+    "name": "CARVES.Records",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2501f915bdc06f24ebefcc0c92f80395",
+        "GUID:fe03824fffd35e147ac2b9a2287dd819",
+        "GUID:07d5aca144cf50341a41ae13c98cbd82"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

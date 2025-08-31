@@ -1,0 +1,21 @@
+{
+    "name": "CARVES.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2501f915bdc06f24ebefcc0c92f80395",
+        "CARVES.Actor",
+        "CARVES.Controller",
+        "CARVES.Execute",
+        "CARVES.Generate",
+        "CARVES.View"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

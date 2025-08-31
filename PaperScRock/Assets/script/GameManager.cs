@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     public Button quitButton;
     public UnitButton[] unitButton;
     public TMP_Text feedbacktext;
+    public UnitSpawner[] trackedSpawners;
+
+    public LevelManager levelManager;
+    private bool gameEnded = false;
 
     public float speedUpAmount = 0.05f;
 
@@ -34,25 +38,110 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+  
+        if (UnitRegistry.Instance != null)
+        {
+            UnitRegistry.Instance.OnUnitRegistered += OnUnitRegistered;
+            UnitRegistry.Instance.OnUnitUnregistered += OnUnitUnregistered;
+        }
+
+        foreach (var s in trackedSpawners)
+        {
+            if (s != null) s.OnSpawnComplete += OnSpawnerComplete;
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (UnitRegistry.Instance != null)
+        {
+            UnitRegistry.Instance.OnUnitRegistered -= OnUnitRegistered;
+            UnitRegistry.Instance.OnUnitUnregistered -= OnUnitUnregistered;
+        }
+        foreach (var s in trackedSpawners)
+        {
+            if (s != null) s.OnSpawnComplete -= OnSpawnerComplete;
+        }
+    }
+
+    private void OnUnitRegistered(Unit u) { }
+
+    private void OnUnitUnregistered(Unit u)
+    {
+        CheckEndConditions();
+    }
+
+    private void OnSpawnerComplete(UnitSpawner s)
+    {
+        CheckEndConditions();
+    }
+
+    public void CheckEndConditions()
+    {
+        if (gameEnded) return;
+
+        if (PlayerTowerHealth != null && PlayerTowerHealth.hp <= 0f)
+        {
+            GameOver(PlayerTowerHealth);
+            return;
+        }
+
+        if (EnemyTowerHealth != null && EnemyTowerHealth.hp <= 0f)
+        {
+            GameOver(EnemyTowerHealth);
+            return;
+        }
+
+        bool anyEnemySpawnerStillSpawning = false;
+        if (trackedSpawners != null)
+        {
+            foreach (var s in trackedSpawners)
+            {
+                if (s == null) continue;
+                if (s.team == TeamType.Enemy && s.IsSpawning)
+                {
+                    anyEnemySpawnerStillSpawning = true;
+                    break;
+                }
+            }
+        }
+
+        int enemyCount = 0;
+        if (UnitRegistry.Instance != null) enemyCount = UnitRegistry.Instance.CountByTeam(TeamType.Enemy);
+
+        if (!anyEnemySpawnerStillSpawning && enemyCount == 0)
+        {
+            GameOver(EnemyTowerHealth);
+        }
+    }
     public void GameOver(Tower defeatedTower)
     {
+        if (gameEnded) return;
+        gameEnded = true;
+
         if (defeatedTower == PlayerTowerHealth)
         {
             Debug.Log("You lose!");
-            feedbacktext.text = "You Lose!!! Loser !!";
-        }
-        else
-        {
-            Debug.Log("You Win!");            
-            feedbacktext.text = "You will never Beat me!!!! NEXT!";
-        }
-        
             Time.timeScale = 0f;
-        gamePanel.SetActive(false);
-        gameOverPanel.SetActive(true);
-        retryButton.interactable = true;
-        nextLevelButton.interactable = true;
-        quitButton.interactable = true;
+            gamePanel.SetActive(false);
+            gameOverPanel.SetActive(true);
+            retryButton.interactable = true;
+            nextLevelButton.interactable = false;
+            quitButton.interactable = true;
+        }
+        else if (defeatedTower == EnemyTowerHealth)
+        {
+
+            Debug.Log("You Win!");
+            Time.timeScale = 0f;
+            gamePanel.SetActive(false);
+            gameOverPanel.SetActive(true);
+            retryButton.interactable = true;
+            nextLevelButton.interactable = true;
+            quitButton.interactable = true;
+        }
 
     }
 
@@ -68,42 +157,18 @@ public class GameManager : MonoBehaviour
 
     public void nextLevel()
     {
-        GameObject[] oldEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(GameObject enemy in oldEnemies)
-        {
-            Destroy(enemy);
-        }
-
-        GameObject[] oldPlayerUnits = GameObject.FindGameObjectsWithTag("PlayerUnit");
-        foreach(GameObject unit in oldPlayerUnits)
-        {
-            Destroy(unit);
-        }
-
         Time.timeScale = 1f;
         gamePanel.SetActive(true);
         gameOverPanel.SetActive(false);
         EnemyTower.SetActive(true);
         PlayerTower.SetActive(true);
-        EnemyTowerHealth = EnemyTower.GetComponent<Tower>();
-        PlayerTowerHealth = PlayerTower.GetComponent<Tower>();
-        EnemyTowerHealth.hp = 5;
-        PlayerTowerHealth.hp = 5;
-        
-        foreach (var btn in unitButton)
-        {
-            btn.ResetCooldown();
-        }
 
-        if (spawner != null)
-        {
-            spawner.IncreaseSpawnSpeed(speedUpAmount);
-            spawner.StartSpawning();
-        }
-        
-        
+        foreach (var btn in unitButton) { btn.ResetCooldown(); }
+
+       levelManager.LoadNextLevel();
+       
     }
-public void QuitGame()
+    public void QuitGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");

@@ -1,62 +1,77 @@
+using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using static LevelData;
 
 public class UnitSpawner: MonoBehaviour
 {
-    public GameObject[] unitPrefabs;
-    public float spawnInterval = 3f;
-    public bool isAutoSpawn = true;
-    private float cooldown = 0f;
-
-    public float minSpawnInterval = 0.02f;
-
-     void Start()
-    {
-        if (isAutoSpawn)
-        {
-            InvokeRepeating("AutoSpawn", 1f, spawnInterval);
-        }
-    }
-
-    void Update()
-    {
-        if (!isAutoSpawn && cooldown > 0)
-        {
-            cooldown -= Time.deltaTime;
-        }
-    }
-
-    void AutoSpawn()
-    {
-        SpawnUnit(Random.Range(0, unitPrefabs.Length));
-    }
-
-    public void SpawnUnit(int index)
-    {
-        if (!isAutoSpawn && cooldown > 0) return;
-        Instantiate(unitPrefabs[index],transform.position,Quaternion.identity);
-        if (!isAutoSpawn) cooldown = 1f;
-    }
+    public TeamType team;
+    public Transform spawnPoint;
+    public SpawnSettings settings;
+    public event Action<UnitSpawner> OnSpawnComplete;
     
-    public void IncreaseSpawnSpeed(float amount)
+    private Coroutine spawnCoroutine;
+    private bool isSpawning = false;
+    public bool IsSpawning => isSpawning;
+
+     public void StartSpawning()
     {
-        spawnInterval -= amount;
-        if (spawnInterval < minSpawnInterval ) spawnInterval = minSpawnInterval;
-
-        if(isAutoSpawn)
-        {
-            CancelInvoke("AutoSpawn");
-            InvokeRepeating("AutoSpawn", spawnInterval, spawnInterval);
-
-        }
-        Debug.Log("new spawntime:" + spawnInterval);
+        if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
+        spawnCoroutine = StartCoroutine(SpawnRoutine());
     }
 
-    public void StartSpawning()
+    public void StopSpawning()
     {
-        CancelInvoke("AutoSpawn");
-        if(isAutoSpawn)
-        {
-            InvokeRepeating("AutoSpawn", 1f, spawnInterval);
-        }
+        if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
+        spawnCoroutine = null;
+        isSpawning = false;
     }
+
+    public void Configure(SpawnSettings spawnSettings)
+    {
+        if (spawnSettings == null || spawnSettings.events == null || spawnSettings.events.Length == 0)
+        {
+            Debug.LogWarning("Spawner: no spawn events configured.");
+                return;
+        }
+        settings = spawnSettings;
+        StartSpawning();
+    }
+    private IEnumerator SpawnRoutine()
+    {
+        if (settings == null || settings.events == null || settings.events.Length == 0)
+        {
+            Debug.LogWarning("UnitSpawner: No Prefab");
+            yield break;
+        }
+
+        isSpawning = true;
+
+        foreach (var e in settings.events)
+        {
+            yield return new WaitForSeconds(e.delay);
+
+            if (e.prefab == null) continue;
+
+            for (int i = 0; i < e.count; i++)
+            {
+                GameObject go = Instantiate(e.prefab, spawnPoint.position, Quaternion.identity);
+
+                Unit unit = go.GetComponent<Unit>();
+                if (unit != null)
+                {
+                    unit.team = team;
+                }
+
+                go.tag = (team == TeamType.Player) ? "PlayerUnit" : "Enemy";
+            }
+        }
+
+        isSpawning = false;
+        spawnCoroutine = null;
+        OnSpawnComplete?.Invoke(this);
+    }
+
 }
+
