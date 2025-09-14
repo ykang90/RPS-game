@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static int currentLevelIndex = 0;
     public static GameManager Instance;
 
     public GameObject EnemyTower;
@@ -24,8 +25,6 @@ public class GameManager : MonoBehaviour
     public LevelManager levelManager;
     private bool gameEnded = false;
 
-    public float speedUpAmount = 0.05f;
-
     void Awake()
     {
         if (Instance == null)
@@ -40,7 +39,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-  
+        if (levelManager != null)
+        {
+            levelManager.LoadLevel(currentLevelIndex);
+        }
+
         if (UnitRegistry.Instance != null)
         {
             UnitRegistry.Instance.OnUnitRegistered += OnUnitRegistered;
@@ -121,28 +124,44 @@ public class GameManager : MonoBehaviour
         if (gameEnded) return;
         gameEnded = true;
 
+        Time.timeScale = 0f;
+        gamePanel.SetActive(false);
+        gameOverPanel.SetActive(true);
+        retryButton.interactable = true;
+        quitButton.interactable = true;
+
         if (defeatedTower == PlayerTowerHealth)
         {
             Debug.Log("You lose!");
-            Time.timeScale = 0f;
-            gamePanel.SetActive(false);
-            gameOverPanel.SetActive(true);
-            retryButton.interactable = true;
             nextLevelButton.interactable = false;
-            quitButton.interactable = true;
         }
         else if (defeatedTower == EnemyTowerHealth)
         {
 
             Debug.Log("You Win!");
-            Time.timeScale = 0f;
-            gamePanel.SetActive(false);
-            gameOverPanel.SetActive(true);
-            retryButton.interactable = true;
             nextLevelButton.interactable = true;
-            quitButton.interactable = true;
+            UnlockNewLevel();
         }
 
+    }
+
+    public void OnLevelPassed(int passedLevel)
+    {
+        int current = PlayerPrefs.GetInt("UnlockedLevel", 1);
+
+        PlayerPrefs.SetInt("UnlockedLevel", Mathf.Max(current, passedLevel + 1));
+        PlayerPrefs.Save();
+
+        Debug.Log("unlocked Level " + (passedLevel + 1));
+    }
+    void UnlockNewLevel()
+    {
+        if (SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex"))
+        {
+            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 1);
+            PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel", 1) + 1);
+            PlayerPrefs.Save();
+        }
     }
 
     public void Retry()
@@ -158,14 +177,8 @@ public class GameManager : MonoBehaviour
     public void nextLevel()
     {
         Time.timeScale = 1f;
-        gamePanel.SetActive(true);
-        gameOverPanel.SetActive(false);
-        EnemyTower.SetActive(true);
-        PlayerTower.SetActive(true);
-
-        foreach (var btn in unitButton) { btn.ResetCooldown(); }
-
-       levelManager.LoadNextLevel();
+        currentLevelIndex++;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
        
     }
     public void QuitGame()

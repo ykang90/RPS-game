@@ -25,7 +25,7 @@ public class Tower: MonoBehaviour
     }
 
     public void ResetHealth()
-
+    
     {
         hp = 5;
 

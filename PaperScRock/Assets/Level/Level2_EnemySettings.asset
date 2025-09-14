@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: Level2_EnemySettings
   m_EditorClassIdentifier: 
   events:
-  - delay: 0
-    prefab: {fileID: 8220892195902513635, guid: a630d3225150ee04f9ace013575a1917, type: 3}
   - delay: 2
-    prefab: {fileID: 8220892195902513635, guid: a630d3225150ee04f9ace013575a1917, type: 3}
-  - delay: 5
-    prefab: {fileID: 8930196393090577483, guid: 0b0f1afb53a9d6440a6c4a4276531588, type: 3}
-  - delay: 7
-    prefab: {fileID: 749871976538071312, guid: 6317b8b5a3c4bf34999da84faa9267cf, type: 3}
-  - delay: 10
-    prefab: {fileID: 749871976538071312, guid: 6317b8b5a3c4bf34999da84faa9267cf, type: 3}
+    prefab: {fileID: 5356964908846537656, guid: e9f3eb0b0faef7a47b0012b57dc9620b, type: 3}
+    count: 1
+  - delay: 2
+    prefab: {fileID: 5356964908846537656, guid: e9f3eb0b0faef7a47b0012b57dc9620b, type: 3}
+    count: 1
+  - delay: 2
+    prefab: {fileID: 5100593322431675376, guid: f8ce0feb765f8a543973f23e2c9e1421, type: 3}
+    count: 1
+  - delay: 3
+    prefab: {fileID: 7474272786624989140, guid: ed51446e351d49d4eb1d8dac9f0a7b7f, type: 3}
+    count: 1
+  - delay: 3
+    prefab: {fileID: 7474272786624989140, guid: ed51446e351d49d4eb1d8dac9f0a7b7f, type: 3}
+    count: 1

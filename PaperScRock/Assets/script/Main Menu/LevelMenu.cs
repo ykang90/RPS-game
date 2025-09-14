@@ -4,21 +4,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class LevelMenu : MonoBehaviour
 {
-    public Button[] buttons;
+    public Button[] LevelButton;
     public GameObject levelButtons;
 
     private void Awake()
     {
-        ButtonsToArray();
+        LevelButton = GetComponentsInChildren<Button>(true);
+
         int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
-        for (int i = 0; i < buttons.Length; i++)
+
+        for(int i = 0; i < LevelButton.Length; i++)
         {
-            buttons[i].interactable = false;
+            LevelButton[i].interactable = (i < unlockedLevel);
         }
-        for (int i = 0;i < unlockedLevel; i++)
-        {
-            buttons[i].interactable = true; 
-        }
+        
     }
     public void OpenLevel( int LevelId)
     {
@@ -29,10 +28,10 @@ public class LevelMenu : MonoBehaviour
     void ButtonsToArray()
     {
         int childCount = levelButtons.transform.childCount;
-        buttons = new Button[childCount];
+        LevelButton = new Button[childCount];
         for (int i = 0; i < childCount; i++)
         {
-            buttons[i] = levelButtons.transform.GetChild(i).gameObject.GetComponent<Button>();
+            LevelButton[i] = levelButtons.transform.GetChild(i).gameObject.GetComponent<Button>();
         }
     }
 }

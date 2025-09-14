@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using Sirenix.OdinInspector.Editor.GettingStarted;
 
 public class LevelSelectManager : MonoBehaviour
 {
@@ -43,10 +45,13 @@ public class LevelSelectManager : MonoBehaviour
         for (int i = startLevel; i <= endLevel; i++)
         {
             GameObject btn = Instantiate(levelButtonPrefab, levelGrid);
-            btn.GetComponentInChildren<Text>().text = i.ToString();
+            btn.GetComponentInChildren<TMP_Text>().text = i.ToString();
 
             int levelIndex = i; 
             btn.GetComponent<Button>().onClick.AddListener(() => LoadLevel(levelIndex));
+
+            int unlockedLevel = PlayerPrefs.GetInt("unlockedLevel", 1);
+            btn.GetComponent<Button>().interactable = (i <= unlockedLevel);
 
             spawnedButtons.Add(btn);
         }
@@ -61,7 +66,7 @@ public class LevelSelectManager : MonoBehaviour
     {
         if (currentPage > 0)
         {
-            ShowPage(currentPage - 1);
+            ShowPage(currentPage - 1);          
         }
     }
 
@@ -75,8 +80,9 @@ public class LevelSelectManager : MonoBehaviour
 
     void LoadLevel(int levelIndex)
     {
-        Debug.Log("Load Level " + levelIndex);
-        // SceneManager.LoadScene("Level" + levelIndex);
+        PlayerPrefs.SetInt("SelectedLevel", levelIndex);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("GameScene");
     }
 }
 

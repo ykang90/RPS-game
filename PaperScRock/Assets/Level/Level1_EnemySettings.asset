@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Level1_EnemySettings
   m_EditorClassIdentifier: 
   events:
-  - delay: 0
-    prefab: {fileID: 8220892195902513635, guid: a630d3225150ee04f9ace013575a1917, type: 3}
   - delay: 2
-    prefab: {fileID: 8220892195902513635, guid: a630d3225150ee04f9ace013575a1917, type: 3}
-  - delay: 5
-    prefab: {fileID: 8220892195902513635, guid: a630d3225150ee04f9ace013575a1917, type: 3}
+    prefab: {fileID: 5470393553569578862, guid: 426bb7b7a2772bf4a982f4992874d679, type: 3}
+    count: 1
+  - delay: 2
+    prefab: {fileID: 5470393553569578862, guid: 426bb7b7a2772bf4a982f4992874d679, type: 3}
+    count: 1
+  - delay: 2
+    prefab: {fileID: 5470393553569578862, guid: 426bb7b7a2772bf4a982f4992874d679, type: 3}
+    count: 1

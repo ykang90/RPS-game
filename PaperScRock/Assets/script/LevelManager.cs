@@ -18,7 +18,8 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("LevelManager: no levels configured in database.");
             return;
         }
-        currentIndex = startLevelIndex;
+        int selected = PlayerPrefs.GetInt("SelectedLevel",1);
+        currentIndex = Mathf.Clamp(selected - 1, 0, database.levels.Length - 1);
         LoadLevel(currentIndex);
     }
 

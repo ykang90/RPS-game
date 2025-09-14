@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Unit:MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Unit:MonoBehaviour
         {
             hp = 0f;
             Destroy(gameObject);
+            Debug.Log($"{team} tower damage.HP = {hp}");  
         }
     }
 

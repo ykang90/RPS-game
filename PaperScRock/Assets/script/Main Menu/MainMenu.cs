@@ -1,10 +1,14 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+
 public class MainMenu:MonoBehaviour
 {
+    public GameObject LevelSelect;
+    public GameObject menuselect;
     public void Game()
     {
-        SceneManager.LoadScene(1);
+        LevelSelect.SetActive(true);
+        menuselect.SetActive(false);
     }
 
     public void QuitGame()
